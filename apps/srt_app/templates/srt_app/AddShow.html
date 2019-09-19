@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Add Show</title>
+    <meta name="description" content="A really cool site!">
+    <!-- Bootstrap CDN -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'app_name/css/style.css' %}">
+    <script src="{% static 'app_name/js/script.js' %}"></script>
+</head>
+
+<body>
+    <!-- GET CREATE BUTTON TO WORK -->
+
+    <div class="container mt-3">
+        <div class="row justify-content-end">
+            <a href="/shows"> &#8249;&nbsp;Go Back</a>
+        </div>
+        <h1>Add a New Show</h1>
+        {% if messages %}
+        <ul class="messages">
+                {% for message in messages %}
+                    <li {% if message.tags %} class="{{ message.tags }} text-danger" {% endif %}>{{ message }}</li>
+                {% endfor %}
+        </ul>
+        {% endif %}
+        <form action="/add_show" method="POST">
+            {% csrf_token %}
+            <div class="row">
+                <label for="title">Title:</label>
+                <input type="text" class="form-control" name="title" value="{{ show.title }}">
+            </div>
+            <div class="row form-group">
+                <div class="col">
+                    <label for="network">Network</label>
+                    <input type="text" name="network" class="form-control" value=" {{ show.network }}">
+                </div>
+                <div class="col">
+                    <label for="">Release Date</label>
+                    <input type="date" name="release_date" class="form-control" value="{{ show.release_date }}">
+                </div>
+            </div>
+            <div class="row form-group">
+                <label for="">Description</label>
+                <textarea class="form-control" name="description" value="{{ show.description }}"></textarea>
+            </div>
+            <div class="row justify-content-center">
+                <button class="btn btn-primary">Create</button>
+            </div>
+        </form>
+
+    </div>
+</body>
+
+</html>

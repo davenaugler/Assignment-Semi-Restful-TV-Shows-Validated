@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Shows</title>
+    <meta name="description" content="A really cool site!">
+    <!-- Bootstrap CDN -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'app_name/css/style.css' %}">
+    <script src="{% static 'app_name/js/script.js' %}"></script>
+</head>
+
+<body>
+    <!-- NEED TO GET DELETE BUTTON AND CREATE BUTTON TO WORK -->
+
+    <div class="container mt-3">
+        <h1>Shows</h1>
+        <table class="table table-hover">
+            <caption>
+                List of Shows
+            </caption>
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Network</th>
+                    <th scope="col">Release Date</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for show in shows %}
+                <tr>
+                    <td>{{ show.id }}</td>
+                    <td>{{ show.title }}</td>
+                    <td>{{ show.network }}</td>
+                    <td>{{ show.release_date }}</td>
+                    <td>
+                        <a href="/shows/{{ show.id }}" class="btn btn-primary">Show</a>
+                        <a href="/shows/{{ show.id}}/edit" class="btn btn-info">Edit</a>
+                        <form style="display: inline-block" action="/delete_show/{{ show.id }}" method="POST">
+                            {% csrf_token %}
+                            <button class="btn btn-danger">Delete</button>
+                        </form>
+                    </td>
+
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="/shows/new"><u>Add a New Show</u></a>
+    </div>
+</body>
+
+</html>
